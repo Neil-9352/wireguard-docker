@@ -1,0 +1,20 @@
+version: '3'
+services:
+  wireguard:
+    build: .
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - SERVERPORT=51820
+      - SERVERURL=auto
+      - PEERS=1
+      - ALLOWEDIPS=0.0.0.0/0
+    volumes:
+      - ./wireguard-data:/config
+    ports:
+      - "51820:51820/udp"
+    restart: unless-stopped
